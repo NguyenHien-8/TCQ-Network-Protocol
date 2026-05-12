@@ -135,43 +135,7 @@ git fetch --prune origin
 git remote set-head origin master
 ```
 
-## 5. Trường Hợp: Đưa toàn bộ src *_test.go đó sang branch riêng và trên branch đó bỏ tên *_test.go
-
-### Tạo backup branch mới trên Local
-```bash
-git switch -c <branch_name>
-```
-
-### Xóa toàn bộ file .go không phải *_test.go
-```bash
-git ls-files '*.go' | Where-Object { $_ -notlike '*_test.go' } | ForEach-Object {
-    git rm $_
-}
-```
-
-### Xóa toàn bộ file *_test.go không phải .go
-```bash
-git switch master
-git ls-files '*.go' | Where-Object { $_ -notlike '*_test.go' } | ForEach-Object {
-    git rm $_
-}
-```
-
-### Rename toàn bộ *_test.go thành .go
-```bash
-git ls-files '*_test.go' | ForEach-Object {
-    $newName = $_ -replace '_test\.go$', '.go'
-    git mv $_ $newName
-}
-```
-
-### Commit branch và Push branch riêng lên Remote
-```bash
-git commit -m "description"
-git push -u origin <branch_name>
-```
-
-## 6. Trường Hợp: Thêm ghi chú cho tất cả các source code
+## 5. Trường Hợp: Thêm ghi chú cho tất cả các source code
 
 ### Tạo backup branch mới trên Local
 ```bash
